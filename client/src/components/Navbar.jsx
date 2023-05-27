@@ -7,7 +7,7 @@ import Axios from "axios";
 
 //Material UI-Components
 import List from "@material-ui/core/List";
-import ListListen from "@material-ui/core/ListItem";
+import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/Avatar";
@@ -27,7 +27,7 @@ import Modal from "@material-ui/core/Modal";
 //Material-UI Icons
 import MoreIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-import ExploreOutlinedActionIcon from "@material-ui/icons/ExploreOutlinedAction";
+import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
 import AddPhotoOutlinedIcon from "@material-ui/icons/AddPhotoOutlined";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import AllInboxOutlinedIcon from "@material-ui/icons/AllInboxOutlined";
