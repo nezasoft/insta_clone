@@ -363,15 +363,21 @@ const Navbar = () => {
 									}
 								/>	
 							</BottomNavigation>
-
-							
-
+						</div>
+						<div className={classes.sectionMobile}>
+							<IconButton  aria-label="showmore" aria-controls={mobileMenuId} aria-haspopup="true"  onClick={handleMobileMenuOpen} color="inherit" >
+								<MoreIcon style={{"color":"rgba(0,0,0,0.54)"}} />
+							</IconButton>
 
 						</div>
 					</Toolbar>
 				</AppBar>
+				{renderMobileMenu}
 
 			</div>
+			<Modal open={openModal} onClose={handleCloseModal} >
+					{modalBody}				
+			</Modal>
 
 		</nav>
 	);
