@@ -140,7 +140,7 @@ const getModalStyle = () => {
 
 const Navbar = () => {
     const {state, dispatch } = useContext(AuthenticationContext);
-    const history = userHistory();
+    const history = useHistory();
     const [search, setSearch] = useState([]);
 
     //Material Ui
@@ -185,11 +185,197 @@ const Navbar = () => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
-    const handleLogOut = () =>{
+    const handleLogout = () =>{
         localStorage.clear();
         dispatch({type: LOGOUT});
         history.push("/login");
     };
+
+	const mobileMenuId = "primary-search-account-menu-mobile";
+	const renderMobileMenu = (
+		<Menu anchorEl={mobileMoreAnchorEl}
+		anchorOrigin={{vertical: "bottom", horizontal:"left"}}
+		id={mobileMenuId}
+		keepMounted
+		transformOrigin={{vertical:"top",horizontal:"right"}}
+		open={isMobileMenuOpen}
+		onClose={handleMobileMenuClose}
+		>
+			<MenuItem onClick={handleOpenModal}>
+				<IconButton>
+					<SearchOutlinedIcon style={{"color":"rgba(0,0,0,0.54"}} />
+				</IconButton>
+				<p>Search</p>
+			</MenuItem>
+			<MenuItem component={Link} to="/explore">
+				<IconButton>
+					<ExploreOutlinedIcon style={{"color":"rgba(0,0,0,0.54"}} />
+				</IconButton>
+				<p>Explore</p>
+			</MenuItem>
+			<MenuItem component={Link} to="/create">
+				<IconButton>
+					<AddPhotoOutlined style={{"color":"rgba(0,0,0,0.54"}} />
+				</IconButton>
+				<p>Add Post</p>
+			</MenuItem>
+			<MenuItem component={Link} to="#">
+				<IconButton>
+					<Badge badgeContent={4} color="secondary">
+						<AllInboxOutlinedIcon  />
+					</Badge>
+				</IconButton>
+				<p>Messages</p>
+			</MenuItem>
+			<MenuItem component={Link} to="#">
+				<IconButton>
+					<Badge badgeContent={6} color="secondary">
+						<NotificationsActiveOutlinedIcon style={{"color":"rgba(0,0,0,0.54"}} />
+					</Badge>
+				</IconButton>
+				<p>Notifications</p>
+			</MenuItem>
+			<MenuItem onClick={handleLogout}>
+				<IconButton>
+					<ExitToAppOutlinedIcon
+					style={{"color":"rgba(0,0,0,0.54)"}} />
+				</IconButton>
+				<p>Logout</p>
+			</MenuItem>
+		</Menu>
+	);
+
+	const modalBody = (
+		<div style={modalStyle} className={classes.paper}>
+			<div className={classes.search} style={{"margin":"0px auto"}}>
+				<div className={classes.searchIcon}>
+					<SearchOutlinedIcon  style={{"color":"rgba(0,0,0,0.54)"}} />
+
+				</div>
+				<InputBase placeholder="Search..."
+				classes={{
+					root: classes.inputRoot,
+					input: classes.inputInput,
+				}} 
+				inputProps={{"aria-label":"search"}}
+				onChange={(e)=>finduser(e.target.value)}
+				/>
+
+			</div>
+			<List className={classes.root}>
+				{search.user ? search.user.map((item)=>{
+					return (
+						<Link className={classes.links} key={item._id} to={item._id !== state._id ? `/profile/${item._id}` : "/profile"} onClick={handleCloseModal}>
+							<Divider variant="inset" component="li" style={{marginLeft:"0px"}}/>
+							<ListItem alignItems="flex-start">
+								<ListItemAvatar>
+									<Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+		
+								</ListItemAvatar>
+								<ListItemText primary={item.name} secondary={<React.Fragment>{item.Email}</React.Fragment>} />
+
+							</ListItem>
+						</Link>
+					);
+				}): null}
+
+			</List>
+
+		</div>
+	);
+
+	return (
+		<nav>
+			<div className={classes.grow}>
+				<AppBar position="static" style={{"backgroundColor":"#ffffff"}}>
+					<Toolbar>
+						<Link to={state ? "/" : "/login"} className={classes.links}>
+							<Typography className={classes.title} variant="h4" noWrap>
+								Instagram Clone
+							</Typography>
+						</Link>
+						<div className={classes.grow} />
+						<div className={classes.sectionDesktop}>
+							<BottomNavigation>
+								<BottomNavigationAction label="Search" value="search" onClick={handleOpenModal} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+										<SearchOutlinedIcon
+											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
+										/>
+									}/>
+		
+								<BottomNavigationAction label="Home" value="home" to="/" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+										<HomeOutlinedIcon
+											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
+										/>
+									}/>
+			
+								<BottomNavigationAction label="Explore" value="explore" to="/explore" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+										<ExploreOutlinedIcon
+											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
+										/>
+									}/>
+	
+								<BottomNavigationAction label="Add Post" value="add post" to="/create" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+										<AddPhotoOutlinedIcon
+											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
+										/>
+									}/>
+	
+								<BottomNavigationAction label="Messages" value="messages" to="/messages" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+										<Badge
+										badgeContent={4}
+										color="secondary"
+										style={{
+											"color": "rgba(0, 0, 0, 0.54)",
+										}}
+										>
+										<AllInboxOutlinedIcon />
+									</Badge>
+									}/>
+								<BottomNavigationAction label="Notifications" value="notification" style={{ "color": "rgba(0, 0, 0, 0.54)" }} icon={
+										<Badge badgeContent={6} color="secondary">
+											<NotificationsActiveOutlinedIcon
+												style={{
+													"color": "rgba(0, 0, 0, 0.54)",
+												}}
+											/>
+										</Badge>
+									}
+								/>	
+								<BottomNavigationAction label="Profile" value="profile" to="/profile" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+										<AccountCircleOutlinedIcon
+											style={{
+												"color": "rgba(0, 0, 0, 0.54)",
+											}}
+										/>
+									}/>
+								<BottomNavigationAction
+									label="Logout"
+									style={{ "color": "rgba(0, 0, 0, 0.54)" }}
+									value="logout"
+									onClick={handleLogOut}
+									icon={
+										<ExitToAppOutlinedIcon
+											style={{
+												"color": "rgba(0, 0, 0, 0.54)",
+											}}
+										/>
+									}
+								/>	
+							</BottomNavigation>
+
+							
+
+
+						</div>
+					</Toolbar>
+				</AppBar>
+
+			</div>
+
+		</nav>
+	);
+
     
 
 
