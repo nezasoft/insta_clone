@@ -24,7 +24,8 @@
     "react-icons": "^4.2.0",
     "react-reactions": "github:randomdipesh/react-reactions",
     "react-router-dom": "^5.3.4",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "webpack": "^4.44.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -49,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3"
   }
 }
