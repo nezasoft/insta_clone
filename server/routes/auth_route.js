@@ -1,4 +1,4 @@
-import { signup, signin, resetPwd, newPwd } from "../controllers/auth_controller";
+import { signup, signin, resetPwd, newPass } from "../controllers/auth_controller.js";
 
 export default (app) => {
     //Route to handle Signup requests
@@ -9,5 +9,5 @@ export default (app) => {
     app.post("/reset-pwd",resetPwd);
 
     //Route to handle Created New passwords requets
-    app.post("/new-pwd",newPwd);
+    app.post("/new-pwd",newPass);
 };

@@ -1,5 +1,5 @@
-import { find } from "../models/post_model";
-import { findOne, findByIdAndUpdate, find as _find } from "../models/user_model";
+import { find } from "../models/post_model.js";
+import { findOne, findByIdAndUpdate, find as _find } from "../models/user_model.js";
 
 export function user(req, res) {
 	findOne({ _id: req.params.id })

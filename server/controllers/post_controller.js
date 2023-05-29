@@ -63,7 +63,7 @@ exports.myPost = (req,res) => {
                 Title: item.Title,
 				Body: item.body,
                 Photo: item.Photo.toString("base64"),
-				{hotoType: item.PhotoType,
+				hotoType: item.PhotoType,
 				Likes: item.Likes,
 				Comments: item.Comments,
             });

@@ -2,7 +2,7 @@ import { json, urlencoded } from "express";
 import morgan from "morgan";
 import cors from "compression";
 import helmet from "helmet";
-import connectDB from "./config/db_config";
+import connectDB from "./config/db_config.js";
 
 //Connection to DB
 require("dotenv").config();
@@ -28,9 +28,9 @@ app.use(json({limit: "50mb"}));
 app.use(urlencoded({extended: true}));
 
 //Routes
-import "./routes/auth_route";
-import "./routes/post_auth";
-import "./routes/user_route";
+import "./routes/auth_route.js";
+import "./routes/post_route.js";
+import "./routes/user_route.js";
 
 //Specify the PORT which will the server running on
 const PORT = process.env.PORT || 3001;

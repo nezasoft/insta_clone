@@ -1,5 +1,5 @@
-import loginmiddleware from "../middleware/login_middleware";
-import { user, follow, unfollow, bookmarks, bookmarkPost, removeBookmark, updatePicture, userSearch } from "../controllers/user_controller";
+import loginmiddleware from "../middleware/login_middleware.js";
+import { user, follow, unfollow, bookmarks, bookmarkPost, removeBookmark, updatePicture, userSearch } from "../controllers/user_controller.js";
 
 export default (app) => {
 	// Getting the user details by id

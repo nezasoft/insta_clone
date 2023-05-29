@@ -1,6 +1,6 @@
 import { verify } from "jsonwebtoken";
 
-import { findById } from "../models/user_model";
+import { findById } from "../models/user_model.js";
 
 export default (req, res, next) => {
 	const { authorization } = req.headers;

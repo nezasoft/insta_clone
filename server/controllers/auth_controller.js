@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
-import User from "../models/user_model";
+import User from "../models/user_model.js";
 
 //SignUp Controller
 exports.signup = (req, res) => {
@@ -40,7 +40,7 @@ exports.signup = (req, res) => {
             });
             //after saving the user to DB we send a confirmation email
         });
-    }).catch((error)=>{
+    }).catch((err)=>{
         console.log(err);
 
     });
@@ -120,7 +120,7 @@ exports.resetPwd = (req, res) =>{
 };
 
 // New Password Controller
-exports.newPwd = (req, res) => {
+exports.newPass = (req, res) => {
 	const Password = req.body.password;
 	const Token = req.body.token;
 	User.findOne({ ResetToken: Token, ExpirationToken: { $gt: Date.now() } })
@@ -129,7 +129,7 @@ exports.newPwd = (req, res) => {
 				return res.status(422).json({ error: "Session expired ! Try Again with a new Request" });
 			}
 			bcrypt.hash(Password, 12).then((HashPwd) => {
-				user.password = HashPwd;
+				user.Password = HashPwd;
 				user.ResetToken = undefined;
 				user.ExpirationToken = undefined;
 				user.save().then((result) => {

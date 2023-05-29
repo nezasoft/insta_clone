@@ -1,5 +1,5 @@
-import { allPost, subPost, myPost, createPost, like, unlike, comment, deletePost } from "../controllers/post_controller";
-import loginmiddleware from "../middleware/login_middleware";
+import { allPost, subPost, myPost, createPost, like, unlike, comment, deletePost } from "../controllers/post_controller.js";
+import loginmiddleware from "../middleware/login_middleware.js";
 
 export default (app) => {
 	// Getting all posts
