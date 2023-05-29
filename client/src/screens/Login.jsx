@@ -98,7 +98,7 @@ const Login = () => {
             setFormatValidation(true);
         }
     };
-    return(
+return(
         <Grid container>
             <Grid className={classes.image} item sm={4} md={6} />
             <Grid item xs={12} sm={8} md={6}>
@@ -124,7 +124,7 @@ const Login = () => {
 
                         <form className={classes.form} noValidate>
                             <TextField 
-                            variant="outline"
+                            variant="outlined"
                             margin="normal"
                             required
                             id="email"
@@ -135,7 +135,7 @@ const Login = () => {
                             onChange={handleInputChanges}
                             />
                             <TextField 
-                            variant="oiutlined"
+                            variant="outlined"
                             margin="normal"
                             required
                             fullWidth
@@ -157,11 +157,14 @@ const Login = () => {
                                 Sign In
                             </Button>
                             <Grid container>
-                                <Link to="/reset" style={{textDecoration: "none"}}>{"Dont have an account? Sign Up"}</Link>
-                            </Grid>
-                            <Grid item>
+                                <Grid item xs>
+                                <Link to="/reset" style={{textDecoration: "none"}}>{" Forgot password?"}</Link>
+                                </Grid>
+                                <Grid item>
                                 <Link to="/signup" style={{textDecoration: "none"}}>
+                                {"Dont have an account? Sign Up"}
                                 </Link>
+                                </Grid>
 
                             </Grid>
                         </form>

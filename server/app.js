@@ -2,12 +2,11 @@ import { json, urlencoded } from "express";
 import morgan from "morgan";
 import cors from "compression";
 import helmet from "helmet";
-
 import connectDB from "./config/db_config";
 
 //Connection to DB
 require("dotenv").config();
-
+ 
 //Create the express application object
 connectDB();
 

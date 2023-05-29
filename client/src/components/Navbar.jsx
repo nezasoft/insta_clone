@@ -2,7 +2,7 @@ import React, {useContext,useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import AuthenticationContext from "../contexts/auth/auth_context";
 
-import {LOGOUT} from "./contexts/types";
+import {LOGOUT} from "../contexts/types";
 import Axios from "axios";
 
 //Material UI-Components
@@ -11,6 +11,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/Avatar";
+import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -28,7 +29,7 @@ import Modal from "@material-ui/core/Modal";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
-import AddPhotoOutlinedIcon from "@material-ui/icons/AddPhotoOutlined";
+import AddAPhotoOutlinedIcon from "@material-ui/icons/AddAPhotoOutlined";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import AllInboxOutlinedIcon from "@material-ui/icons/AllInboxOutlined";
 import NotificationsActiveOutlinedIcon from "@material-ui/icons/NotificationsActiveOutlined";
@@ -145,7 +146,7 @@ const Navbar = () => {
 
     //Material Ui
     const classes = useStyles();
-    const [mobileMoreAnchorEl, setMobileAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     //getModalStyle is not a pure function, we roll the style only on the first render
@@ -170,7 +171,7 @@ const Navbar = () => {
     };
 
     const handleOpenModal = () =>{
-        setMobileMenuClose();
+        handleMobileMenuClose();
         setOpenModal(true);
     };
     const handleCloseModal = () => {
@@ -215,7 +216,7 @@ const Navbar = () => {
 			</MenuItem>
 			<MenuItem component={Link} to="/create">
 				<IconButton>
-					<AddPhotoOutlined style={{"color":"rgba(0,0,0,0.54"}} />
+					<AddAPhotoOutlinedIcon style={{"color":"rgba(0,0,0,0.54"}} />
 				</IconButton>
 				<p>Add Post</p>
 			</MenuItem>
@@ -297,31 +298,36 @@ const Navbar = () => {
 						<div className={classes.grow} />
 						<div className={classes.sectionDesktop}>
 							<BottomNavigation>
-								<BottomNavigationAction label="Search" value="search" onClick={handleOpenModal} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+								<BottomNavigationAction label="Search" value="search" onClick={handleOpenModal} style={{"color" : "rgba(0,0,0,0.54"}}  
+								icon={
 										<SearchOutlinedIcon
 											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
 										/>
 									}/>
 		
-								<BottomNavigationAction label="Home" value="home" to="/" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+								<BottomNavigationAction label="Home" value="home" to="/" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  
+								icon={
 										<HomeOutlinedIcon
 											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
 										/>
 									}/>
 			
-								<BottomNavigationAction label="Explore" value="explore" to="/explore" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+								<BottomNavigationAction label="Explore" value="explore" to="/explore" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  
+								icon={
 										<ExploreOutlinedIcon
 											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
 										/>
 									}/>
 	
-								<BottomNavigationAction label="Add Post" value="add post" to="/create" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
-										<AddPhotoOutlinedIcon
+								<BottomNavigationAction label="Add Post" value="add post" to="/create" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  
+								icon={
+										<AddAPhotoOutlinedIcon
 											style={{ "color": "rgba(0, 0, 0, 0.54)" }}
 										/>
 									}/>
 	
-								<BottomNavigationAction label="Messages" value="messages" to="/messages" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+								<BottomNavigationAction label="Messages" value="messages" to="/messages" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  
+								icon={
 										<Badge
 										badgeContent={4}
 										color="secondary"
@@ -332,7 +338,8 @@ const Navbar = () => {
 										<AllInboxOutlinedIcon />
 									</Badge>
 									}/>
-								<BottomNavigationAction label="Notifications" value="notification" style={{ "color": "rgba(0, 0, 0, 0.54)" }} icon={
+								<BottomNavigationAction label="Notifications" value="notification" style={{ "color": "rgba(0, 0, 0, 0.54)" }} 
+								icon={
 										<Badge badgeContent={6} color="secondary">
 											<NotificationsActiveOutlinedIcon
 												style={{
@@ -342,7 +349,8 @@ const Navbar = () => {
 										</Badge>
 									}
 								/>	
-								<BottomNavigationAction label="Profile" value="profile" to="/profile" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  icon={
+								<BottomNavigationAction label="Profile" value="profile" to="/profile" component={Link} style={{"color" : "rgba(0,0,0,0.54"}}  
+								icon={
 										<AccountCircleOutlinedIcon
 											style={{
 												"color": "rgba(0, 0, 0, 0.54)",
@@ -353,7 +361,7 @@ const Navbar = () => {
 									label="Logout"
 									style={{ "color": "rgba(0, 0, 0, 0.54)" }}
 									value="logout"
-									onClick={handleLogOut}
+									onClick={handleLogout}
 									icon={
 										<ExitToAppOutlinedIcon
 											style={{
@@ -381,10 +389,6 @@ const Navbar = () => {
 
 		</nav>
 	);
-
-    
-
-
 
 };
 export default Navbar;
