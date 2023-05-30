@@ -1,10 +1,10 @@
 import React, {useState, useContext} from "react";
 import {Link, useHistory} from "react-router-dom";
-import AuthenticationContext from "../contexts/auth/auth_context";
-import  {FETCH_USER_DATA} from "../contexts/types";
-import {LOGIN_URL} from "../config/constants";
+import AuthenticationContext from "../contexts/auth/auth_context.js";
+import  {FETCH_USER_DATA} from "../contexts/types.js";
+import {LOGIN_URL} from "../config/constants.js";
 import Copyright from "../components/Copyright";
-import {EmailRegex} from "../utils/regex";
+import {EmailRegex} from "../utils/regex.js";
 import axios from "axios";
 
 //Metrails UI components
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme)=>({
 	image: {
 		backgroundSize: "cover",
 		backgroundColor: "#fafafa",
-		backgroundImage: "url(https://source.unsplash.com/random)",
+		backgroundImage: "url(https://source.unsplash.com/1600X900/?nature,photography,technology)",
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",
 		height: "100vh",
@@ -99,6 +99,7 @@ const Login = () => {
         }
     };
 return(
+    <>
         <Grid container>
             <Grid className={classes.image} item sm={4} md={6} />
             <Grid item xs={12} sm={8} md={6}>
@@ -106,7 +107,7 @@ return(
                     <CssBaseline />
                     <div className={classes.paper}>
                         <Typography className={classes.logo} variant="h2" gutterBottom>
-                            Instagram Clone
+                            App Social
                         </Typography>
 
                         {formatValidation ? (
@@ -127,6 +128,7 @@ return(
                             variant="outlined"
                             margin="normal"
                             required
+                            fullWidth
                             id="email"
                             label="Email Address"
                             name="email"
@@ -178,6 +180,7 @@ return(
                 </Container>
             </Grid>
         </Grid>
+        </>
     );
 
 };

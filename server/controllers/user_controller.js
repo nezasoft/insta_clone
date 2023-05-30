@@ -2,10 +2,10 @@ import Post from "../models/post_model.js";
 import User from "../models/user_model.js";
 
 export function user(req, res) {
-	findOne({ _id: req.params.id })
+	User.findOne({ _id: req.params.id })
 		.select("-Password")
 		.then((user) => {
-			find({ PostedBy: req.params.id })
+			Post.find({ PostedBy: req.params.id })
 				.populate("PostedBy", "_id Name")
 				.exec((err, result) => {
 					if (err) return res.status(422).json();
@@ -32,7 +32,7 @@ export function user(req, res) {
 }
 
 export function follow(req, res) {
-	findByIdAndUpdate(
+	User.findByIdAndUpdate(
 		req.body.followId,
 		{
 			$push: { Followers: req.user._id },
@@ -44,7 +44,7 @@ export function follow(req, res) {
 			if (err) {
 				return res.status(422).json({ error: err });
 			}
-			findByIdAndUpdate(
+			User.findByIdAndUpdate(
 				req.user._id,
 				{
 					$push: { Following: req.body.followId },
@@ -63,7 +63,7 @@ export function follow(req, res) {
 }
 
 export function unfollow(req, res) {
-	findByIdAndUpdate(
+	User.findByIdAndUpdate(
 		req.body.unfollowId,
 		{
 			$pull: { Followers: req.user._id },
@@ -75,7 +75,7 @@ export function unfollow(req, res) {
 			if (err) {
 				return res.status(422).json({ error: err });
 			}
-			findByIdAndUpdate(
+			User.findByIdAndUpdate(
 				req.user._id,
 				{
 					$pull: { Following: req.body.unfollowId },
@@ -94,11 +94,11 @@ export function unfollow(req, res) {
 }
 
 export function bookmarks(req, res) {
-	_find({ _id: req.user._id })
+	User.find({ _id: req.user._id })
 		.select("-Password")
 		.then((user) => {
 			const data = user[0].Bookmarks;
-			find({ _id: { $in: data } })
+			User.find({ _id: { $in: data } })
 				.populate("PostedBy", "_id Name")
 				.then((result) => {
 					let bookmark = [];
@@ -124,7 +124,7 @@ export function bookmarks(req, res) {
 }
 
 export function bookmarkPost(req, res) {
-	findByIdAndUpdate(
+	User.findByIdAndUpdate(
 		req.user._id,
 		{
 			$push: { Bookmarks: req.body.postId },
@@ -141,7 +141,7 @@ export function bookmarkPost(req, res) {
 }
 
 export function removeBookmark(req, res) {
-	findByIdAndUpdate(
+	User.findByIdAndUpdate(
 		req.user._id,
 		{
 			$pull: { Bookmarks: req.body.postId },
@@ -159,7 +159,7 @@ export function removeBookmark(req, res) {
 
 // Just Wrote the logic of it but not yet tested and the client implementation doesn't exist yet
 export function updatePicture(req, res) {
-	findByIdAndUpdate(
+	User.findByIdAndUpdate(
 		req.user._id,
 		{ $set: { Photo: req.body.Photo, PhotoType: req.body.PhotoType } },
 		{ new: true },
@@ -174,7 +174,7 @@ export function updatePicture(req, res) {
 
 export function userSearch(req, res) {
 	let pattern = new RegExp("^" + req.body.pattern);
-	_find({ Email: { $regex: pattern } })
+	User.find({ Email: { $regex: pattern } })
 		.select("_id Email Name")
 		.then((user) => {
 			res.json({ user });

@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-import cors from cors;
+import cors from "cors";
 import compression from "compression";
 import helmet from "helmet";
 import connectDB from "./config/db_config.js";
@@ -22,12 +22,12 @@ app.use(helmet());
 app.use(morgan("dev"));
 //set up cors to allow us to accept requests from our client
 app.use(
-    cors({origin:"http://localhost:3000",credentials:true,}) //location of the react app were connecting to
+    cors({origin:"http://192.168.24.5:3000",credentials:true,}) //location of the react app were connecting to
 );
 
 //Parsers
-app.use(json({limit: "50mb"}));
-app.use(urlencoded({extended: true}));
+app.use(express.json({limit: "50mb"}));
+app.use(express.urlencoded({extended: true}));
 
 //Routes
 import "./routes/auth_route.js";
@@ -35,7 +35,8 @@ import "./routes/post_route.js";
 import "./routes/user_route.js";
 
 //Specify the PORT which will the server running on
-const PORT = process.env.PORT || 3001;
+//const PORT = process.env.PORT || 3001;
+const PORT = 5000 || 5001;
 
 //Disabling Powered by tag
 app.disable("x-powered-by");

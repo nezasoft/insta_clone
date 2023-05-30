@@ -25,18 +25,18 @@ const Routing = () =>{
         <BrowserRouter>
             <Switch>
                 {/*Public Routes*/}
-                <Route exact path="/login" element={Login} />
-                <Route exact path="/signup" element={Signup} />
-                <Route exact path="/reset" element={Reset} />
-                <Route exact path="/reset/:token" element={NewPass} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/reset" component={Reset} />
+                <Route exact path="/reset/:token" component={NewPass} />
 
                 { /*Separate Protected routes from public ones */ }
 
-                <ProtectedRoute exact path="/" element={SubscribePost} />
-                <ProtectedRoute exact path="/explore" element={Home} />
-                <ProtectedRoute exact path="/create" element={CreatePost} />
-                <ProtectedRoute exact path="/profile" element={Profile} />
-                <ProtectedRoute exact path="/profile/:user-id" element={UserProfile} />
+                <ProtectedRoute exact path="/" component={SubscribePost} />
+                <ProtectedRoute exact path="/explore" component={Home} />
+                <ProtectedRoute exact path="/create" component={CreatePost} />
+                <ProtectedRoute exact path="/profile" component={Profile} />
+                <ProtectedRoute exact path="/profile/:user-id" component={UserProfile} />
 
                 {/* Incase we want to handle that 404 page not found*/}
                 {/* <Route component={NotFound}*/}

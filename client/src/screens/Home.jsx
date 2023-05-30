@@ -5,7 +5,6 @@ import AuthenticationContext from "../contexts/auth/auth_context";
 import { BOOKMARK_POST } from "../contexts/types";
 import Navbar from "../components/Navbar";
 import { config as axiosConfig, ALL_POST_URL } from "../config/constants";
-
 //Material-UI components
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -31,7 +30,7 @@ import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 
-
+const hostname = "192.168.24.191";
 // General style
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -123,15 +122,16 @@ const Home = () => {
     const [comment, setComment] = useState("");
     const config = axiosConfig(localStorage.getItem("jwt"));
     
-   useEffect(()=>{
+   useEffect(() => {
         axios.get(ALL_POST_URL, config).then((res) =>{
             setData(res.data.posts);
         });
-    },[]);
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
 
     const likePost = (id) => {
-        axios.put(`http://localhost:5000/like`,{postId: id},config).then((result)=>{
+        axios.put(`http://${hostname}:5000/like`,{postId: id},config).then((result)=>{
             const newData = data.map((item)=>{
                 if(result.data._id === item._id) return result.data;
                 else return item;
@@ -141,7 +141,7 @@ const Home = () => {
     };
 
     const unlikePost = (id) => {
-    axios.put(`http://localhost:5000/Unlike`,{postId: id}, config).then((res) =>{
+    axios.put(`http://${hostname}:5000/Unlike`,{postId: id}, config).then((res) =>{
         const newData = data.map((item)=>{
             if(res.data._id===item._id) return res.data;
             else return item;
@@ -151,7 +151,7 @@ const Home = () => {
     };
 
     const bookmark = (id) =>{
-        axios.put(`http://localhost:5000/bookmark-post`,{postId: id, config}).then((result)=>{
+        axios.put(`http://${hostname}:5000/bookmark-post`,{postId: id, config}).then((result)=>{
             dispatch({
                 type: BOOKMARK_POST,
                 payload: {Bookmarks: result.data.Bookmarks},           
@@ -161,7 +161,7 @@ const Home = () => {
     };
 
     const removeBookmark = (id) =>{
-        axios.put(`http://localhost:5000/remove-bookmark`,{postId: id}, config).then((result)=>{
+        axios.put(`http://${hostname}:5000/remove-bookmark`,{postId: id}, config).then((result)=>{
             dispatch({
                 type: BOOKMARK_POST,
                 payload: {Bookmarks: result.data.Bookmarks},
@@ -172,7 +172,7 @@ const Home = () => {
 
     const makeComment = (text, postId) => {
         setComment("");
-        axios.put(`http://localhost:500/comment`,{text, postId},config).then((result)=>{
+        axios.put(`http://${hostname}:500/comment`,{text, postId},config).then((result)=>{
             const newData = data.map((item)=>{
                 if(result.data._id === item.id) return result.data;
                 else return item;
@@ -184,7 +184,7 @@ const Home = () => {
     };
 
     const deletePost = (postId) => {
-        axios.delete(`http://localhost:5000/deletepost/${postId}`,config).then((res)=>{
+        axios.delete(`http://${hostname}:5000/deletepost/${postId}`,config).then((res)=>{
             const newData = data.filter((item) =>{
                 return item._id !== res.data;
             });
@@ -234,7 +234,7 @@ const Home = () => {
                     </IconButton>
                         
                 ) : (
-                    <IconButton aria-lable="Bookmark" style={{marginLeft: "auto"}} onClick={()=>{bookmark(item._id);}}>
+                    <IconButton aria-label="Bookmark" style={{marginLeft: "auto"}} onClick={()=>{bookmark(item._id);}}>
                         <BookmarkBorderIcon />
                     </IconButton>
                 )}
@@ -289,7 +289,7 @@ const Home = () => {
             <Divider variant="middle" />
             <CardContent className={classes.comments}>
                 <Avatar>
-                    <img src="https://images.unsplash.com/photo-1537815749002-de6a533c64db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" className={classes.avatar} />
+                    <img src="https://images.unsplash.com/photo-1537815749002-de6a533c64db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"  className={classes.avatar} />
                 </Avatar>
                 <TextField
                     multiline rows={1} placeholder="Add your comment.." variant="outlined" value={comment} onChange={(event) => {
