@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user_model.js";
 
 //SignUp Controller
-exports.signup = (req, res) => {
+export const signup = (req, res) => {
     const {name, email, password} = req.body;
     //verifying if one of the fields is Empty
     if(!name || !password || !email){
@@ -46,7 +46,7 @@ exports.signup = (req, res) => {
     });
 };
 //SignIn Controller
-exports.signin = (req,res) => {
+export const signin = (req,res) => {
     const {email, password} = req.body;
     //Verification for an empty field
     if(!email || !password) {
@@ -76,7 +76,7 @@ exports.signin = (req,res) => {
 };
 
 //reset password controller
-exports.resetPwd = (req, res) =>{
+export const resetPwd = (req, res) =>{
     crypto.randomBytes(32, (err, buffer)=>{
         if(err) {
             console.log(err);
@@ -120,7 +120,7 @@ exports.resetPwd = (req, res) =>{
 };
 
 // New Password Controller
-exports.newPass = (req, res) => {
+export const newPass = (req, res) => {
 	const Password = req.body.password;
 	const Token = req.body.token;
 	User.findOne({ ResetToken: Token, ExpirationToken: { $gt: Date.now() } })

@@ -1,5 +1,5 @@
-import { find } from "../models/post_model.js";
-import { findOne, findByIdAndUpdate, find as _find } from "../models/user_model.js";
+import Post from "../models/post_model.js";
+import User from "../models/user_model.js";
 
 export function user(req, res) {
 	findOne({ _id: req.params.id })
@@ -40,7 +40,7 @@ export function follow(req, res) {
 		{
 			new: true,
 		},
-		(err, result) => {
+		(err, res) => {
 			if (err) {
 				return res.status(422).json({ error: err });
 			}
@@ -71,7 +71,7 @@ export function unfollow(req, res) {
 		{
 			new: true,
 		},
-		(err, result) => {
+		(err, res) => {
 			if (err) {
 				return res.status(422).json({ error: err });
 			}

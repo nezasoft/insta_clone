@@ -1,6 +1,7 @@
-const Post = require("../models/post_model").default;
+//const Post = require("../models/post_model");
+import Post from "../models/post_model.js";
 
-exports.allPost = (req, res) => {
+export const allPost = (req, res) => {
     Post.find().populate("PostedBy","_id Name")
     .populate("Comments.PostedBy","_id Name")
     .sort("-createdAt")
@@ -24,7 +25,7 @@ exports.allPost = (req, res) => {
     });
 };
 
-exports.subPost = (req, res) => {
+export const subPost = (req, res) => {
     Post.find({PostedBy: {$in: req.user.Following}})
     .populate("PostedBy","_id Name")
     .populate("Comments.PostedBy","_id Name")
@@ -50,7 +51,7 @@ exports.subPost = (req, res) => {
 };
 
 
-exports.myPost = (req,res) => {
+export const myPost = (req,res) => {
     Post.find({PostedBy: {$in: req.user._id}})
     .populate("PostedBy","_id Name")
     .populate("Comments.PostedBy","_id Name")
@@ -75,7 +76,7 @@ exports.myPost = (req,res) => {
     });
 };
 
-exports.createPost = (req, res) => {
+export const createPost = (req, res) => {
 	const { title, body, photoEncode, photoType } = req.body;
 	if (!title || !body || !photoEncode) {
 		return res.json({
@@ -104,7 +105,7 @@ exports.createPost = (req, res) => {
 		});
 };
 
-exports.like = (req, res) => {
+export const like = (req, res) => {
 	Post.findByIdAndUpdate(
 		req.body.postId,
 		{
@@ -131,7 +132,7 @@ exports.like = (req, res) => {
 		});
 };
 
-exports.unlike = (req, res) => {
+export const unlike = (req, res) => {
 	Post.findByIdAndUpdate(
 		req.body.postId,
 		{
@@ -159,7 +160,7 @@ exports.unlike = (req, res) => {
 		});
 };
 
-exports.comment = (req, res) => {
+export const comment = (req, res) => {
 	const comment = { Text: req.body.text, PostedBy: req.user._id };
 	Post.findByIdAndUpdate(
 		req.body.postId,
@@ -187,7 +188,7 @@ exports.comment = (req, res) => {
 		});
 };
 
-exports.deletePost = (req, res) => {
+export const deletePost = (req, res) => {
 	Post.findOne({ _id: req.params.postId })
 		.populate("PostedBy", "_id")
 		.exec((err, post) => {

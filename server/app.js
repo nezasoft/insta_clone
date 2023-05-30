@@ -1,14 +1,16 @@
-import { json, urlencoded } from "express";
+import express from "express";
 import morgan from "morgan";
-import cors from "compression";
+import cors from cors;
+import compression from "compression";
 import helmet from "helmet";
 import connectDB from "./config/db_config.js";
 
 //Connection to DB
-require("dotenv").config();
+//require("dotenv").config();
  
 //Create the express application object
 connectDB();
+const app = express();
 
 //Compress the HTTP response sent back to client
 app.use(compression()); //compress all routes
