@@ -7,7 +7,7 @@ export const config = (jwt) =>{
     };
 };
 
-const host_name ="192.168.24.191";
+const host_name ="localhost";
 /* EndPoints of the API used in the code */
 
 //CreatePost Screen

@@ -22,7 +22,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 //set up cors to allow us to accept requests from our client
 app.use(
-    cors({origin:"http://192.168.24.5:3000",credentials:true,}) //location of the react app were connecting to
+    cors({origin:"http://localhost:3000",credentials:true,}) //location of the react app were connecting to
 );
 
 //Parsers
