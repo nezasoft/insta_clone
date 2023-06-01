@@ -11,7 +11,7 @@ import CreatePost from "../screens/CreatePost";
 import Profile from "../screens/Profile";
 import UserProfile from "../screens/UserProfile";
 import SubscribePost from "../screens/SubscribePost";
-import Reset from "../screens/ResetPassword";
+import ResetPassword from "../screens/ResetPassword";
 import NewPass from "../screens/NewPassword";
 
 const Routing = () =>{
@@ -27,7 +27,7 @@ const Routing = () =>{
                 {/*Public Routes*/}
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
-                <Route exact path="/reset" component={Reset} />
+                <Route exact path="/reset" component={ResetPassword} />
                 <Route exact path="/reset/:token" component={NewPass} />
 
                 { /*Separate Protected routes from public ones */ }

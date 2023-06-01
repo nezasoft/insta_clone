@@ -18,7 +18,7 @@ export default (app) => {
 	app.put("/like", loginmiddleware, like);
 
 	// Unlike a post
-	app.put("/Unlike", loginmiddleware, unlike);
+	app.put("/unlike", loginmiddleware, unlike);
 
 	// Commenting a post
 	app.put("/comment", loginmiddleware, comment);
